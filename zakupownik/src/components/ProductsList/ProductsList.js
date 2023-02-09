@@ -12,7 +12,10 @@ class Results extends React.Component {
         <header className={commonColumnsStyles.AppHeader}>
           <ul>
             {productsToDisplay.map((produkty, index) => (
-              <li key={index}>{`${produkty.nazwa}`} 
+              <li 
+              onClick={() => console.log("clicked!")} 
+              key={index}>
+                {`${produkty.nazwa}`} 
                </li>
             ))}
           </ul>

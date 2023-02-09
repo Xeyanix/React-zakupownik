@@ -39,6 +39,23 @@ const produkty = [
   kategoria: 'warzywo',
   produktSpozywczy: true,
 },
+
+{
+  nazwa: 'krzesło',
+  // kategoria: 'rzecz',
+  produktSpozywczy: false,
+},
+{
+  nazwa: 'klawiatura',
+  // kategoria: 'rzecz',
+  produktSpozywczy: false,
+},
+{
+  nazwa: 'monitor',
+  // kategoria: 'rzecz',
+  produktSpozywczy: false,
+},
+
 ];
 
 export default produkty;

@@ -6,12 +6,19 @@ class ProductsFilters extends React.Component {
     super(props);
     this.state = {
       searchPhrase: '',
+      searchType: false,
       searchCategory: '',
     };
   }
 
   handleSearchPhraseChange = (event) => {
     this.setState({ searchPhrase: event.target.value }, () =>
+      this.filterProdukty()
+    );
+  };
+
+  handleProductType = (event) => {
+    this.setState({ searchType: event.target.checked }, () =>
       this.filterProdukty()
     );
   };
@@ -24,7 +31,7 @@ class ProductsFilters extends React.Component {
 
   filterProdukty = () => {
     const { produkty } = this.props;
-    const { searchPhrase, searchCategory } = this.state;
+    const { searchPhrase, searchType, searchCategory } = this.state;
 
     // odfiltrowanie zgodnych wyników
     let filteredProducts = produkty.filter((produkty) =>
@@ -34,9 +41,16 @@ class ProductsFilters extends React.Component {
       filteredProducts = filteredProducts.filter(
         (produkty) => produkty.kategoria === searchCategory
       );
+      }
+      if (searchType) {
+        filteredProducts = filteredProducts.filter(
+          (produkty) => produkty.produktSpozywczy === true
+        );
+      
     }
     console.log('sprawdzam aktualne filtry', filteredProducts);
     // przekazanie wyfiltrowanych pojazdów do komponentu rodzica (App)
+
     this.props.sendfilteredProductsToParentComponent(filteredProducts);
   };
 
@@ -44,6 +58,7 @@ class ProductsFilters extends React.Component {
     this.setState(
       {
         searchPhrase: '',
+        searchType: false,
         searchCategory: '',
       },
       () => {
@@ -54,14 +69,14 @@ class ProductsFilters extends React.Component {
 
   getUniqueFoodCategory = () => {
     const { produkty } = this.props;
-    const vehicleEngineList = produkty.map((produkty) => produkty.kategoria);
-    const foodCategory = [...new Set(vehicleEngineList)];
+    const foodCategoryList = produkty.map((produkty) => produkty.kategoria);
+    const foodCategory = [...new Set(foodCategoryList)];
     return foodCategory;
   };
 
   render() {
     const uniqueFoodCategory = this.getUniqueFoodCategory();
-    const { searchPhrase, searchCategory } = this.state;
+    const { searchPhrase, searchType, searchCategory } = this.state;
     return (
       <div className={styles.ProductsFiltersWrapper}>
         <input
@@ -71,10 +86,13 @@ class ProductsFilters extends React.Component {
         <p> Tylko produkty </p>
         <input
           type="checkbox"
-          onChange={this.handleOnlyCarsChange}
+          onChange={this.handleProductType}
+          value= {searchType}
         ></input>
-        <p> kategoria </p>
-        <select value={searchCategory} onChange={this.handleSelectCategory}>
+        <p> Produkt Spożywczy </p>
+        <select 
+        value={searchCategory} 
+        onChange={this.handleSelectCategory}>
           <option key={'all'} value={''}>
             All Categories
           </option>
@@ -84,7 +102,7 @@ class ProductsFilters extends React.Component {
             </option>
           ))}
         </select>
-        {/* <button onClick={this.filterProdukty}>Wyszukaj</button> */}
+        <button onClick={this.filterProdukty}>Wyszukaj</button>
         <button onClick={this.handleResetFilters}>Zresetuj filtry</button>
       </div>
     );

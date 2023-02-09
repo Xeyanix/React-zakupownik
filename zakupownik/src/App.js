@@ -6,17 +6,17 @@ import produkty from './common/consts/produkty';
 import styles from './App.module.scss';
 
 function App() {
-  const [productsListToDisplay, setproductsListToDisplay] = useState(produkty);
-  console.log('wszystkie pojazdy', produkty);
+  const [productsListToDisplay, setProductsListToDisplay] = useState(produkty);
+  console.log('wszystkie produkty', produkty);
   return (
     <div className={styles.appWrapper}>
       <ProductsFilters
         produkty={produkty}
-        sendFilteredVehiclesToParentComponent={setproductsListToDisplay}
+        sendfilteredProductsToParentComponent={setProductsListToDisplay}
       />
       <div className={styles.columnsWrapper}>
         <ProductsList productsToDisplay={productsListToDisplay} />
-        <ShopingList productsToDisplay={productsListToDisplay} />
+        <ShopingList  />
       </div>
     </div>
   );
