@@ -12,20 +12,23 @@ class ProductsFilters extends React.Component {
   }
 
   handleSearchPhraseChange = (event) => {
-    this.setState({ searchPhrase: event.target.value }, () =>
-      this.filterProdukty()
+    this.setState({ searchPhrase: event.target.value }
+      // , () =>
+      // this.filterProdukty()
     );
   };
 
   handleProductType = (event) => {
-    this.setState({ searchType: event.target.checked }, () =>
-      this.filterProdukty()
+    this.setState({ searchType: event.target.checked }
+      // , () =>
+      // this.filterProdukty()
     );
   };
 
   handleSelectCategory = (event) => {
-    this.setState({ searchCategory: event.target.value }, () =>
-      this.filterProdukty()
+    this.setState({ searchCategory: event.target.value }
+      // , () =>
+      // this.filterProdukty()
     );
   };
 
@@ -103,7 +106,7 @@ class ProductsFilters extends React.Component {
           ))}
         </select>
         <button onClick={this.filterProdukty}>Wyszukaj</button>
-        <button onClick={this.handleResetFilters}>Zresetuj filtry</button>
+        {/* <button onClick={this.handleResetFilters}>Zresetuj filtry</button> */}
       </div>
     );
   }
