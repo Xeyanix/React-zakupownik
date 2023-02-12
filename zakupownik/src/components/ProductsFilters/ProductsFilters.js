@@ -12,20 +12,17 @@ class ProductsFilters extends React.Component {
   }
 
   handleSearchPhraseChange = (event) => {
-    this.setState({ searchPhrase: event.target.value }, () =>
-      this.filterProdukty()
+    this.setState({ searchPhrase: event.target.value }
     );
   };
 
   handleProductType = (event) => {
-    this.setState({ searchType: event.target.checked }, () =>
-      this.filterProdukty()
+    this.setState({ searchType: event.target.checked }
     );
   };
 
   handleSelectCategory = (event) => {
-    this.setState({ searchCategory: event.target.value }, () =>
-      this.filterProdukty()
+    this.setState({ searchCategory: event.target.value }
     );
   };
 
@@ -35,18 +32,18 @@ class ProductsFilters extends React.Component {
 
     // odfiltrowanie zgodnych wyników
     let filteredProducts = produkty.filter((produkty) =>
-      produkty.nazwa.includes(searchPhrase)
+    produkty.nazwa.includes(searchPhrase)
     );
     if (searchCategory) {
       filteredProducts = filteredProducts.filter(
         (produkty) => produkty.kategoria === searchCategory
       );
-      }
-      if (searchType) {
-        filteredProducts = filteredProducts.filter(
-          (produkty) => produkty.produktSpozywczy === true
-        );
-      
+    }
+    if (searchType) {
+      filteredProducts = filteredProducts.filter(
+        (produkty) => produkty.produktSpozywczy === true
+      );
+
     }
     console.log('sprawdzam aktualne filtry', filteredProducts);
     // przekazanie wyfiltrowanych pojazdów do komponentu rodzica (App)
@@ -87,12 +84,12 @@ class ProductsFilters extends React.Component {
         <input
           type="checkbox"
           onChange={this.handleProductType}
-          value= {searchType}
+          value={searchType}
         ></input>
         <p> Produkt Spożywczy </p>
-        <select 
-        value={searchCategory} 
-        onChange={this.handleSelectCategory}>
+        <select
+          value={searchCategory}
+          onChange={this.handleSelectCategory}>
           <option key={'all'} value={''}>
             All Categories
           </option>

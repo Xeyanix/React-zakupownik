@@ -42,20 +42,39 @@ const produkty = [
 
 {
   nazwa: 'krzesło',
-  // kategoria: 'rzecz',
+  kategoria: 'rzecz',
   produktSpozywczy: false,
 },
 {
   nazwa: 'klawiatura',
-  // kategoria: 'rzecz',
+  kategoria: 'rzecz',
   produktSpozywczy: false,
 },
 {
   nazwa: 'monitor',
-  // kategoria: 'rzecz',
+  kategoria: 'rzecz',
   produktSpozywczy: false,
 },
-
+{
+nazwa: 'pies',
+kategoria: 'zwierzę',
+produktSpozywczy: false,
+},
+{
+nazwa: 'kaczka',
+kategoria: 'zwierzę',
+produktSpozywczy: false,
+},
+{
+nazwa: 'łabądź',
+kategoria: 'zwierzę',
+produktSpozywczy: false,
+},
+{
+  nazwa: 'koleżanka z 3c',
+  kategoria: 'osoba',
+  produktSpozywczy: false,
+  },
 ];
 
 export default produkty;
