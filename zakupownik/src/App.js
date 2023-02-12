@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from "react";
+import AddProducts from './components/AddProducts/AddProducts';
 import ProductsList from './components/ProductsList/ProductsList';
 import ShopingList from './components/ShopingList/ShopingList';
 import ProductsFilters from './components/ProductsFilters/ProductsFilters';
@@ -9,12 +10,12 @@ import styles from './App.module.scss';
 function App() {
   const cart = [];
 
-  const [prodcuts, setProducts] = useState(produkty); //1
-  const [shoppingList, setShoppingList] = useState(cart); //2
+  const [prodcuts, setProducts] = useState(produkty); 
+  const [shoppingList, setShoppingList] = useState(cart); 
 
-//spoko
   return (
     <div className={styles.appWrapper}>
+      <AddProducts/>
       <ProductsFilters
         produkty={produkty}
         sendfilteredProductsToParentComponent={setProducts}

@@ -12,22 +12,21 @@ function ShopingList(props) {
   }, [props.shoppingList]);
 
   const removeFromShoppingList = (id) => {
+    // id.preventDefault();
     props.remove(productsToBuy.filter((product) => product.id !== id));
   };
 
-  
   return (
     <div className={commonColumnsStyles.App}>
       <header className={commonColumnsStyles.AppHeader}>
         <ul>
-          {/* wyświetlenie listy produktów */}
           {props.shoppingList.map((produkt, index) => (
             <li
-            onClick={() => {
+            onContextMenu={() => {
               removeFromShoppingList(produkt.id);
             }}
           
-              key={produkt.id}
+              key={index}
             >
               {produkt}
 

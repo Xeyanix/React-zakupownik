@@ -1,21 +1,27 @@
+
 import React from 'react';
-// import styles from './Results.module.scss';
+// import styles from './ProductsList.scss';
 import commonColumnsStyles from '../../common/styles/Columns.module.scss';
 
 class ProductsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      shoppingCart: []
+      shoppingCart: [],
     };
   }
 
-  addProduct = (event) => {
-    this.setState({ shoppingCart: [...this.state.shoppingCart, event.target.innerText] });
+  addProduct = () => {
+    this.setState({ shoppingCart: [...this.state.shoppingCart] });
     console.log(this.state.shoppingCart);
     this.props.sendResultsToParent(this.state.shoppingCart);
+
+    this.setState(prevState => ({
+      shoppingCart: [prevState.shoppingCart]
+    }));
   }
 
+  
   render() {
     const { productList } = this.props;
     return (
