@@ -76,17 +76,17 @@ class ProductsFilters extends React.Component {
     const { searchPhrase, searchType, searchCategory } = this.state;
     return (
       <div className={styles.ProductsFiltersWrapper}>
+        <p> Tylko produkty </p>
         <input
           value={searchPhrase}
           onChange={this.handleSearchPhraseChange}
-        ></input>
-        <p> Tylko produkty </p>
+          ></input>
+          <p> Produkt Spożywczy </p>
         <input
           type="checkbox"
           onChange={this.handleProductType}
           value={searchType}
-        ></input>
-        <p> Produkt Spożywczy </p>
+          ></input>
         <select
           value={searchCategory}
           onChange={this.handleSelectCategory}>
@@ -100,11 +100,10 @@ class ProductsFilters extends React.Component {
           ))}
         </select>
         <button onClick={this.filterProdukty}>Wyszukaj</button>
-        {/* <button onClick={this.handleResetFilters}>Zresetuj filtry</button> */}
+        <button onClick={this.handleResetFilters}>Zresetuj filtry</button>
       </div>
     );
   }
 }
 
 export default ProductsFilters;
-// sad
