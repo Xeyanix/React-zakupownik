@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from "react";
+import AddProducts from './components/AddProducts/AddProducts';
 import ProductsList from './components/ProductsList/ProductsList';
 import ShopingList from './components/ShopingList/ShopingList';
 import ProductsFilters from './components/ProductsFilters/ProductsFilters';
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <div className={styles.appWrapper}>
+      <AddProducts/>
       <ProductsFilters
         produkty={produkty}
         sendfilteredProductsToAppComponent={setProductsToDisplay}

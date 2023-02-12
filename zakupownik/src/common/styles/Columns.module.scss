@@ -16,6 +16,14 @@ $color-red: red;
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.Wrappper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+}
 
 .AppHeader {
   background-color: #282c34;

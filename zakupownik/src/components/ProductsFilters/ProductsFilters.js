@@ -35,11 +35,13 @@ class ProductsFilters extends React.Component {
     let filteredProducts = produkty.filter((produkty) =>
     produkty.nazwa.includes(searchPhrase)
     );
+
     if (searchCategory) {
       filteredProducts = filteredProducts.filter(
         (produkty) => produkty.kategoria === searchCategory
       );
     }
+    
     if (searchType) {
       filteredProducts = filteredProducts.filter(
         (produkty) => produkty.produktSpozywczy === true
