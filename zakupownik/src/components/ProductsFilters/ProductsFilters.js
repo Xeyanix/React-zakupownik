@@ -17,7 +17,8 @@ class ProductsFilters extends React.Component {
   };
 
   handleProductType = (event) => {
-    this.setState({ searchType: event.target.checked }
+    this.setState({ searchType: event.target.checked }, 
+      () => this.filterProdukty()
     );
   };
 
@@ -46,9 +47,9 @@ class ProductsFilters extends React.Component {
 
     }
     console.log('sprawdzam aktualne filtry', filteredProducts);
-    // przekazanie wyfiltrowanych pojazdów do komponentu rodzica (App)
+    // przekazanie wyfiltrowanego jedzenia do komponentu rodzica (App)
 
-    this.props.sendfilteredProductsToParentComponent(filteredProducts);
+    this.props.sendfilteredProductsToAppComponent(filteredProducts);
   };
 
   handleResetFilters = () => {
@@ -70,10 +71,13 @@ class ProductsFilters extends React.Component {
     const foodCategory = [...new Set(foodCategoryList)];
     return foodCategory;
   };
+  
 
   render() {
     const uniqueFoodCategory = this.getUniqueFoodCategory();
     const { searchPhrase, searchType, searchCategory } = this.state;
+
+
     return (
       <div className={styles.ProductsFiltersWrapper}>
         <p> Tylko produkty </p>
@@ -81,24 +85,27 @@ class ProductsFilters extends React.Component {
           value={searchPhrase}
           onChange={this.handleSearchPhraseChange}
           ></input>
+
           <p> Produkt Spożywczy </p>
+
         <input
           type="checkbox"
           onChange={this.handleProductType}
           value={searchType}
           ></input>
+
         <select
           value={searchCategory}
           onChange={this.handleSelectCategory}>
           <option key={'all'} value={''}>
             All Categories
-          </option>
-          {uniqueFoodCategory.map((kategoria) => (
+          </option>{uniqueFoodCategory.map((kategoria) => (
             <option key={kategoria} value={kategoria}>
               {kategoria}
             </option>
           ))}
         </select>
+
         <button onClick={this.filterProdukty}>Wyszukaj</button>
         <button onClick={this.handleResetFilters}>Zresetuj filtry</button>
       </div>

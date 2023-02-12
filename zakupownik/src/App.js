@@ -7,22 +7,30 @@ import produkty from './common/consts/produkty';
 import styles from './App.module.scss';
 
 function App() {
-  const cart = [];
+  const [products, setProducts] = useState(produkty);
+  const [shoppingList, setShoppingList] = useState([]);
+  const [productsToDisplay, setProductsToDisplay] = useState(products);
 
-  const [prodcuts, setProducts] = useState(produkty); //1
-  const [shoppingList, setShoppingList] = useState(cart); //2
+  const addToShoppingList = (product) => {
+    setShoppingList((state) => [...state, { ...product, id: Math.random(), isClicked: false },
+    ]);
+  };
 
-//spoko
+  const addNewProduct = (product) => {
+    setProducts((prev) => [...prev, product]);
+    setProductsToDisplay([...products, product]);
+  };
+
   return (
     <div className={styles.appWrapper}>
       <ProductsFilters
         produkty={produkty}
-        sendfilteredProductsToParentComponent={setProducts}
+        sendfilteredProductsToAppComponent={setProductsToDisplay}
       />
       <div className={styles.columnsWrapper}>
         <ProductsList
-          productList={prodcuts}
-          sendResultsToParent={(resultsFromShoppingList) => setShoppingList(resultsFromShoppingList)}
+          produkty={productsToDisplay}
+          addToShoppingList={addToShoppingList}
         />
         <ShopingList
           shoppingList={shoppingList}
@@ -31,6 +39,6 @@ function App() {
       </div>
     </div>
   );
-};
+}
 
 export default App;
