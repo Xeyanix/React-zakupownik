@@ -100,7 +100,7 @@ class ProductsFilters extends React.Component {
           ))}
         </select>
         <button onClick={this.filterProdukty}>Wyszukaj</button>
-        <button onClick={this.handleResetFilters}>Zresetuj filtry</button>
+        {/* <button onClick={this.handleResetFilters}>Zresetuj filtry</button> */}
       </div>
     );
   }

@@ -39,7 +39,6 @@ const produkty = [
   kategoria: 'warzywo',
   produktSpozywczy: true,
 },
-
 {
   nazwa: 'krzesło',
   kategoria: 'rzecz',
