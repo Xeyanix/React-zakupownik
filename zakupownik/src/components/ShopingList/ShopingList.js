@@ -26,7 +26,7 @@ function ShopingList(props) {
             onClick={() => {
               removeFromShoppingList(produkt.id);
             }}
-           
+          
               key={produkt.id}
             >
               {produkt}

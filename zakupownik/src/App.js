@@ -12,7 +12,7 @@ function App() {
   const [prodcuts, setProducts] = useState(produkty); //1
   const [shoppingList, setShoppingList] = useState(cart); //2
 
-
+//spoko
   return (
     <div className={styles.appWrapper}>
       <ProductsFilters
@@ -27,7 +27,6 @@ function App() {
         <ShopingList
           shoppingList={shoppingList}
           remove={setShoppingList}
-  
         />
       </div>
     </div>
