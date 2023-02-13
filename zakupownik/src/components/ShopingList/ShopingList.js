@@ -13,17 +13,14 @@ function ShopingList(props) {
     props.remove(productsToBuy.filter((product) => product.id !== id));
   };
 
-
-
   const productsToDisplay = productsToBuy?.map((product, index) => (
 
     <li
       onContextMenu={(event) => { removeFromShoppingList(event, product.id); }}
-      key={product.id}>
+      key={index}>
       {product.nazwa}
     </li>
   ));
-
 
   return (
     <div className={commonColumnsStyles.App}>

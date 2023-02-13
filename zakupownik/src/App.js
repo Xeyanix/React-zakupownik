@@ -15,16 +15,12 @@ function App() {
   const addToShoppingList = (product) => {
     setShoppingList((state) => [...state, { ...product, id: Math.random(), isClicked: false },
     ]);
-  };
-
-  const addNewProduct = (product) => {
-    setProducts((prev) => [...prev, product]);
-    setProductsToDisplay([...products, product]);
+    setProducts((prev) => [...prev, product]) //zeby było klikane bez opóźnienia
   };
 
   return (
     <div className={styles.appWrapper}>
-      <AddProducts/>
+      <AddProducts />
       <ProductsFilters
         produkty={produkty}
         sendfilteredProductsToAppComponent={setProductsToDisplay}
