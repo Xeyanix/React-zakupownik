@@ -10,6 +10,7 @@ import styles from './App.module.scss';
 function App() {
   const [products, setProducts] = useState(produkty);
   const [shoppingList, setShoppingList] = useState([]);
+
   const [productsToDisplay, setProductsToDisplay] = useState(products);
 
   const addToShoppingList = (product) => {
@@ -28,10 +29,10 @@ function App() {
       <div className={styles.columnsWrapper}>
         <ProductsList
           produkty={productsToDisplay}
-          addToShoppingList={addToShoppingList}
+          dodawanie={addToShoppingList}
         />
         <ShopingList
-          shoppingList={shoppingList}
+          koszykproduktów={shoppingList}
           remove={setShoppingList}
         />
       </div>
