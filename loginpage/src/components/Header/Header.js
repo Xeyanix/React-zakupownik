@@ -1,22 +1,42 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
+import WithRouterHOC from '../WithRouterHOC/WithRouterHOC';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { deleteAirports, loadAirports } from '../../redux/airportsSlice';
 
-class Header extends React.Component {
-  render() {
-    const userFromLocalStorage = localStorage.loggedUser && JSON.parse(localStorage.loggedUser)
-    return (
-      <div className={styles.HeaderWrapper}>
-        <Link to="/">
-          <button> Sign out </button>
-        </Link>
-        Jestes zalogowany jako:
-        {userFromLocalStorage?.userFirstName}{" "}
-        {userFromLocalStorage?.userLastName}
+const Header = (props) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-      </div>
-    );
-  }
-}
+  const handleButtonClick = () => {
+    localStorage.removeItem('loggedUser');
+    navigate('/');
+  };
 
-export default Header;
+  const userFromLocalStorage =
+    localStorage.loggedUser && JSON.parse(localStorage.loggedUser);
+  return (
+    <div className={styles.HeaderWrapper}>
+      <button onClick={handleButtonClick}>Sign Out</button>
+      <p>Jesteś zalogowany jako: </p>
+      {userFromLocalStorage?.userFirstName} {userFromLocalStorage?.userLastName}
+      <button
+
+        onClick={() => dispatch(loadAirports())}
+      >
+        Załaduj Lotniska
+      </button>
+      <button
+        onClick={() => dispatch(deleteAirports())}
+      >
+        Usuń Lotniska
+      </button>
+
+
+
+    </div>
+  );
+};
+
+export default WithRouterHOC(Header);

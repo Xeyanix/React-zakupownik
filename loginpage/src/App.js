@@ -1,27 +1,20 @@
-import Results from "./components/Results/Results";
-// import RightColumn from './components/RightColumn/RightColumn';
-import Header from "./components/Header/Header";
-import styles from "./App.module.scss";
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import Header from './components/Header/Header';
+import styles from './App.module.scss';
+import { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!localStorage.loggedUser) {
-      navigate("/");
+      navigate('/');
     }
   });
-
-
   return (
     <div className={styles.appWrapper}>
       <Header />
-      <div className={styles.columnsWrapper}>
-        <Results />
-        {/* <RightColumn /> */}
-      </div>
+      <Outlet />
     </div>
   );
 }
