@@ -2,8 +2,6 @@ import commonColumnsStyles from '../../common/styles/Columns.module.scss'
 import { useEffect, useState } from "react";
 
 function ShopingList(props) {
-
-
   const [productsToBuy, setProductsToBuy] = useState([]);
 
   useEffect(() => {
@@ -14,20 +12,20 @@ function ShopingList(props) {
     props.remove(productsToBuy.filter((product) => product.id !== id));
     event.preventDefault();
   };
-  
-  const productsToDisplay = productsToBuy.map((product, index) => (
+
+  const dupa = productsToBuy.map((product, index) => (
     <li
-    onContextMenu={(event) => {removeFromShoppingList(event, product.id); }}
+      onContextMenu={(event) => { removeFromShoppingList(event, product.id); }}
       key={index}>
       {product.nazwa}
     </li>
   ));
-  
+
   return (
     <div className={commonColumnsStyles.App}>
       <header className={commonColumnsStyles.AppHeader}>
         <p>Koszyk produktów:</p>
-        <ul>{productsToDisplay}</ul>
+        <ul>{dupa}</ul>
       </header>
     </div>
   );

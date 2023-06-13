@@ -17,7 +17,7 @@ class ProductsFilters extends React.Component {
   };
 
   handleProductType = (event) => {
-    this.setState({ searchType: event.target.checked }, 
+    this.setState({ searchType: event.target.checked },
       () => this.filterProdukty()
     );
   };
@@ -33,7 +33,7 @@ class ProductsFilters extends React.Component {
 
     // odfiltrowanie zgodnych wyników
     let filteredProducts = produkty.filter((produkty) =>
-    produkty.nazwa.includes(searchPhrase)
+      produkty.nazwa.includes(searchPhrase)
     );
 
     if (searchCategory) {
@@ -41,7 +41,7 @@ class ProductsFilters extends React.Component {
         (produkty) => produkty.kategoria === searchCategory
       );
     }
-    
+
     if (searchType) {
       filteredProducts = filteredProducts.filter(
         (produkty) => produkty.produktSpozywczy === true
@@ -73,7 +73,7 @@ class ProductsFilters extends React.Component {
     const foodCategory = [...new Set(foodCategoryList)];
     return foodCategory;
   };
-  
+
 
   render() {
     const uniqueFoodCategory = this.getUniqueFoodCategory();
@@ -86,19 +86,20 @@ class ProductsFilters extends React.Component {
         <input
           value={searchPhrase}
           onChange={this.handleSearchPhraseChange}
-          ></input>
+        ></input>
 
-          <p> Produkt Spożywczy </p>
+        <p> Produkt Spożywczy </p>
 
         <input
           type="checkbox"
           onChange={this.handleProductType}
           value={searchType}
-          ></input>
+        ></input>
 
         <select
           value={searchCategory}
           onChange={this.handleSelectCategory}>
+
           <option key={'all'} value={''}>
             All Categories
           </option>{uniqueFoodCategory.map((kategoria) => (
@@ -107,7 +108,6 @@ class ProductsFilters extends React.Component {
             </option>
           ))}
         </select>
-
         <button onClick={this.filterProdukty}>Wyszukaj</button>
         <button onClick={this.handleResetFilters}>Zresetuj filtry</button>
       </div>

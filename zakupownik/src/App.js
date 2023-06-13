@@ -8,9 +8,8 @@ import produkty from './common/consts/produkty';
 import styles from './App.module.scss';
 
 function App() {
-  const [products, setProducts] = useState(produkty);
   const [shoppingList, setShoppingList] = useState([]);
-
+  const [products, setProducts] = useState(produkty);
   const [productsToDisplay, setProductsToDisplay] = useState(products);
 
   const addToShoppingList = (product) => {
