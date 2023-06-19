@@ -1,9 +1,9 @@
 .headerWrapper {
-    height: 100px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .filtersHeaderWrapper {
@@ -20,17 +20,17 @@
   display: flex;
   flex-direction: row;
 
-  & > * {
+  &>* {
     margin-left: 16px;
   }
 }
 
 .signedUserInfo {
-    display: flex;
-    align-items: center;
-    margin-right: 24px;
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
 
-    & > * {
-      margin-left: 16px;
-    }
+  &>* {
+    margin-left: 16px;
+  }
 }

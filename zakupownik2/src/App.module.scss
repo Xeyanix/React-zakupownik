@@ -1,9 +1,12 @@
 .appWrapper {
   display: flex;
   flex-direction: column;
+
+
 }
 
 .columnsWrapper {
   display: flex;
-  height: calc(100vh - 216px);
+  height: calc(100vh - 100px);
+
 }

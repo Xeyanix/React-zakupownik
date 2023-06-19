@@ -37,7 +37,7 @@ const ProductsList = () => {
   };
 
   return (
-    <div className={commonColumnsStyles.AppColumn}>
+    <div className={commonColumnsStyles.App}>
       <Snackbar
         open={snackbarIsVisible}
         autoHideDuration={3000}
@@ -45,7 +45,7 @@ const ProductsList = () => {
         message={`${responseError}`}
       />
       <header className={commonColumnsStyles.AppHeader}>
-        <p>Products list</p>
+        <p>Products List</p>
         {loadingStatus === 'loading' ? <CircularProgress /> :
           productsList.length > 0
             ? productsList.map((product) => (
@@ -54,7 +54,7 @@ const ProductsList = () => {
                 {product.name} {product.id}{' '}
               </span>
             ))
-            : 'brak porduktow do wyświetlenia'}
+            : 'brak produktów do wyświetlenia'}
         {/* Poniżej znajduje się ostylowany aktywny produkt do zadania 5 */}
         {/* <span
           style={{

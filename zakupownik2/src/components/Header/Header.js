@@ -19,7 +19,7 @@ const Header = (props) => {
   const getProductsFromAPI = async (path) => {
     try {
       dispatch(setProductsLoadingState('loading'))
-      const response = await axios.get(`http://localhost:9000/products}`);
+      const response = await axios.get(`http://localhost:9000/${path}`);
       dispatch(loadProducts(response.data))
       dispatch(setProductsLoadingState('success'))
     } catch (error) {
