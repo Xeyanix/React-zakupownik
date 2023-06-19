@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
 let productsList = require("../common/consts/products");
 let shoppingList = [];
+
 router.get("/", (req, res) => {
   res.status(200).json(
     products.map((product) => ({

@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { uniqueId } from 'lodash';
 
 export const productsSlice = createSlice({
-    name: 'airports',
+    name: 'products',
     initialState: {
         list: [],
         selectedProduct: null,
-        airportsLoadingState: 'initial',
+        productsLoadingState: 'initial',
         responseError: ''
     },
     reducers: {
@@ -20,13 +20,13 @@ export const productsSlice = createSlice({
             state.selectedProduct = value.payload;
         },
         removeProduct: (state, value) => {
-            // const airportToRemove = value.payload;
+            // const productToRemove = value.payload;
             // state.list = state.list.filter(
-            //   (airport) => airport.id !== airportToRemove.id
+            //   (product) => product.id !== productToRemove.id
             // );
         },
         setProductsLoadingState: (state, value) => {
-            state.airportsLoadingState = value.payload;
+            state.productsLoadingState = value.payload;
         },
         setResponseError: (state, value) => {
             state.responseError = value.payload;
