@@ -3,7 +3,7 @@ $color-red: red;
 .App {
   text-align: center;
   display: flex;
-  width: 50vw;
+  width: 100vw;
 }
 
 .AppLogo {
@@ -16,25 +16,16 @@ $color-red: red;
     animation: App-logo-spin infinite 20s linear;
   }
 }
-.Wrappper{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  align-items: center;
-}
 
 .AppHeader {
-  background-color: #282c34;
-  height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: $color-red;
+  color: red;
   width: 100%;
+  border: 1px solid black;
+  background: lightgray;
 }
 
 @keyframes App-logo-spin {

@@ -1,26 +1,25 @@
-import React from 'react';
-// import styles from './Results.module.scss';
-import commonColumnsStyles from '../../common/styles/Columns.module.scss';
+import React from "react";
+import commonColumnsStyles from "../../common/styles/Columns.module.scss";
 
-
-function ProductsList(props) {
-
-  const productsList = props.produkty.map((product) => (
-    <li 
-    onClick={() => props.dodawanie(product)} 
-    key={product.nazwa}>
-      {product.nazwa}
-    </li>
-  ));
-
-    return (
-      <div className={commonColumnsStyles.App}>
-        <header className={commonColumnsStyles.AppHeader}>
-        <p>Lista produktów:</p>
-        <ul>{productsList}</ul>
-        </header>
-      </div>
-    );
-  }
+function ProductsList() {
+  return (
+    <div className={commonColumnsStyles.AppColumn}>
+      <header className={commonColumnsStyles.AppHeader}>
+        <p>Products list</p>
+        {/* Poniżej znajduje się ostylowany aktywny produkt do zadania 5 */}
+        {/* <span
+          style={{
+            backgroundColor: "white",
+            border: "1px black solid",
+            borderRadius: "16px",
+            padding: "6px",
+          }}
+        >
+          Przykładowy aktywny produkt
+        </span> */}
+      </header>
+    </div>
+  );
+}
 
 export default ProductsList;
