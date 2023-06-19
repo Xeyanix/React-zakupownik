@@ -1,71 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import commonColumnsStyles from "../../common/styles/Columns.module.scss";
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import Snackbar from '@mui/material/Snackbar';
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setSelectedProduct, setResponseError, setProductsLoadingState } from '../../redux/productsSlice';
-import CircularProgress from '@mui/material/CircularProgress';
-import axios from 'axios';
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import {
+  loadShoppingList,
+  setProductsLoadingState,
+} from "../../redux/productsSlice";
+import { CircularProgress } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
 
-const ProductsList = () => {
-  const [snackbarIsVisible, setSnackbarIsVisible] = useState(false);
-  const productsList = useSelector((state) => state.products.list);
-  const loadingStatus = useSelector((state) => state.products.productsLoadingState);
-  const responseError = useSelector((state) => state.products.responseError);
-  const location = useLocation();
+function ProductsList() {
+  const filteredProducts = useSelector((state) => state.products.filteredProducts);
+  const loadingStatus = useSelector((state) => state.products.loadingStatus);
   const dispatch = useDispatch();
-
-  const navigate = useNavigate();
-
-
-  useEffect(() => {
-    setSnackbarIsVisible(true);
-  }, [responseError]);
+  const [addedItemId, setaddedItemId] = useState(0);
 
   const handleItemClick = async (product) => {
     try {
-      dispatch(setProductsLoadingState('loading'))
-      const response = await axios.get(`http://localhost:9000/products/${product.id}/delayed`);
-      dispatch(setSelectedProduct(response.data))
-      dispatch(setProductsLoadingState('success'))
-      navigate(`/product/details/${product.id}`);
+      setaddedItemId(product.id);
+      const newProduct = { ...product };
+      newProduct.id = uuidv4();
+
+      dispatch(setProductsLoadingState(`AddingItem`));
+      await axios.post(
+        `http://localhost:9000/products/shoppingList/new`,
+        newProduct
+      );
+
+      const resShoppingList = await axios.get(
+        `http://localhost:9000/products/shoppingList`
+      );
+      dispatch(loadShoppingList(resShoppingList.data));
+      dispatch(setProductsLoadingState("success"));
     } catch (error) {
-      dispatch(setProductsLoadingState('error'))
+      console.log(error);
     }
   };
-
   return (
     <div className={commonColumnsStyles.App}>
-      <Snackbar
-        open={snackbarIsVisible}
-        autoHideDuration={3000}
-        onClose={() => setSnackbarIsVisible(false)}
-        message={`${responseError}`}
-      />
       <header className={commonColumnsStyles.AppHeader}>
-        <p>Products List</p>
-        {loadingStatus === 'loading' ? <CircularProgress /> :
-          productsList.length > 0
-            ? productsList.map((product) => (
-              <span onClick={() => handleItemClick(product)}>
-                {' '}
-                {product.name} {product.id}{' '}
-              </span>
-            ))
-            : 'brak produktów do wyświetlenia'}
-        {/* Poniżej znajduje się ostylowany aktywny produkt do zadania 5 */}
-        {/* <span
-          style={{
-            backgroundColor: "white",
-            border: "1px black solid",
-            borderRadius: "16px",
-            padding: "6px",
-          }}
-        >
-          Przykładowy aktywny produkt
-        </span> */}
+        <p>Products list</p>
+        {filteredProducts.length > 0
+          ? filteredProducts.map((product) => (
+            <span onClick={() => handleItemClick(product)}>
+              {" "}
+              {product.id} {product.name}{" "}
+              {loadingStatus === "AddingItem" &&
+                addedItemId === product.id
+                ? (
+                  <CircularProgress />
+                ) : (
+                  ""
+                )
+              }
+            </span>
+          ))
+          : "brak produktów do wyświetlenia"}
       </header>
     </div>
   );

@@ -1,46 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { uniqueId } from 'lodash';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const productsSlice = createSlice({
-    name: 'products',
+    name: "products",
     initialState: {
-        list: [],
-        selectedProduct: null,
-        productsLoadingState: 'initial',
-        responseError: ''
+        productsList: [],
+        filteredProducts: [],
+        shoppingList: [],
+        searchFilter: "",
+        foodOnly: false,
+        loadingStatus: "initial",
     },
     reducers: {
         loadProducts: (state, value) => {
-            state.list = value.payload;
+            state.productsList = value.payload;
         },
-        removeProducts: (state) => {
-            // state.list = [];
+        loadShoppingList: (state, value) => {
+            state.shoppingList = value.payload;
         },
-        setSelectedProduct: (state, value) => {
-            state.selectedProduct = value.payload;
+        filterProducts: (state, value) => {
+            state.searchFilter = value.payload;
+            state.filteredProducts = state.productsList.filter((product) =>
+                product.name.startsWith(state.searchFilter)
+            );
+            if (state.foodOnly) {
+                state.filteredProducts = state.filteredProducts.filter(
+                    (product) => product.isFood === state.foodOnly
+                );
+            }
         },
-        removeProduct: (state, value) => {
-            // const productToRemove = value.payload;
-            // state.list = state.list.filter(
-            //   (product) => product.id !== productToRemove.id
-            // );
+        showOnlyFood: (state, value) => {
+            state.foodOnly = value.payload;
         },
         setProductsLoadingState: (state, value) => {
-            state.productsLoadingState = value.payload;
-        },
-        setResponseError: (state, value) => {
-            state.responseError = value.payload;
+            state.loadingStatus = value.payload;
         },
     },
 });
 
 export const {
     loadProducts,
-    removeProducts,
-    setSelectedProduct,
-    removeProduct,
+    loadShoppingList,
+    filterProducts,
+    showOnlyFood,
     setProductsLoadingState,
-    setResponseError
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
