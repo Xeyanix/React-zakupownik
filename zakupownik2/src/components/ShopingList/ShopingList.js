@@ -21,10 +21,11 @@ function ShoppingList() {
       await axios.delete(
         `http://localhost:9000/products/shoppingList/${product.id}`
       );
-      const resShoppingList = await axios.get(
+
+      const response = await axios.get(
         `http://localhost:9000/products/shoppingList`
       );
-      dispatch(loadShoppingList(resShoppingList.data));
+      dispatch(loadShoppingList(response.data));
       dispatch(setProductsLoadingState("success"));
     } catch (error) {
       console.log(error);

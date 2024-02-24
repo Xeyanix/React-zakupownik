@@ -16,10 +16,12 @@ function ProductsFilters() {
     (state) => state.products.searchFilter
   );
   const dispatch = useDispatch();
+
   const handleSearchPhraseChange = (event) => {
     setsearchPhrase(event.target.value);
     dispatch(filterProducts(event.target.value));
   };
+
   const handleOnlyFoodChecked = (event) => {
     setisOnlyFood(event.target.checked);
     if (event.target.checked) {

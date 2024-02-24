@@ -62,7 +62,7 @@ const products = [
   },
   {
     id: "11",
-    name: "Chleb",
+    name: "chleb",
     category: "Bakery",
     isFood: true
   },
