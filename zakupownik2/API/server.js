@@ -16,6 +16,7 @@ const logger = (req, res, next) => {
     next();
 }
 
+
 app.set('view engine', 'ejs');
 app.use(logger);
 

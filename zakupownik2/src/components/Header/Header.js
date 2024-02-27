@@ -3,8 +3,7 @@ import styles from "../../common/styles/Headers.module.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography, Button } from "@mui/material";
-import { loadProducts, loadShoppingList } from "../../redux/productsSlice";
-import { filterProducts } from "../../redux/productsSlice";
+import { loadProducts, loadShoppingList, filterProducts } from "../../redux/productsSlice";
 import axios from "axios";
 
 function Header(props) {
