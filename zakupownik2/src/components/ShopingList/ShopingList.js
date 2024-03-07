@@ -31,6 +31,7 @@ function ShoppingList() {
       console.log(error);
     }
   };
+
   return (
     <div className={commonColumnsStyles.App}>
       <header className={commonColumnsStyles.AppHeader}>

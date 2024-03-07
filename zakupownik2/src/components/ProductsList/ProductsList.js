@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import commonColumnsStyles from "../../common/styles/Columns.module.scss";
+import styles from "../../common/styles/Columns.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import {
@@ -10,13 +10,13 @@ import { CircularProgress } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
 function ProductsList() {
-  const filteredProducts = useSelector((state) => state.products.filteredProducts);
   const loadingStatus = useSelector((state) => state.products.loadingStatus);
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
   const [addedItemId, setAddedItemId] = useState(0);
-  const [selectedProduct, setSelectedProduct] = useState(null); // New state to store selected product
-  const [processors, setProcessors] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedMotherboard, setSelectedMotherboard] = useState(null);
+  const [availableProcessors, setAvailableProcessors] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -33,6 +33,8 @@ function ProductsList() {
 
     fetchProducts();
   }, [dispatch]);
+
+
 
   const handleItemClick = async (product) => {
     try {
@@ -52,33 +54,47 @@ function ProductsList() {
       dispatch(loadShoppingList(response.data));
       dispatch(setProductsLoadingState("success"));
 
-      // Fetch processors for selected motherboard
-      const processorResponse = await axios.get(
-        `http://localhost:9000/products/${product.id}/processors`
+      //----------------------------------------------------------
+      const motherboardResponse = await axios.get(
+        `http://localhost:9000/products/${product.id}`
       );
-      setProcessors(processorResponse.data);
+      dispatch(setSelectedProduct(motherboardResponse.data));
 
-      // Set the selected product
-      setSelectedProduct(product);
+
+      //----------------------------------------------------------
+
+      const processorsResponse = await axios.get(
+        `http://localhost:9000/products/cpus/${product.id}`
+      );
+      dispatch(setSelectedProduct(processorsResponse.data));
+
+
+
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className={commonColumnsStyles.App}>
-      <header className={commonColumnsStyles.AppHeader}>
-        <p>Products list</p>
+    <div className={styles.App}>
+      <header className={styles.AppHeader}>
+        <h2>Wybierz płytę główną</h2>
+
         {products.length > 0 ? (
           products.map((product) => (
-            <span key={product.id} onClick={() => handleItemClick(product)}>
-              {product.id} {product.name}{" "}
-              {loadingStatus === "AddingItem" && addedItemId === product.id ? (
-                <CircularProgress />
-              ) : (
-                ""
-              )}
-            </span>
+            <div key={product.id}>
+              <span onClick={() => handleItemClick(product)}>
+                {product.id} {product.name}{" "}
+                {loadingStatus === "AddingItem" && addedItemId === product.id ? (
+                  <CircularProgress />
+                ) : (
+                  ""
+                )}
+              </span>
+              <button className={styles.myButton} onClick={() => handleItemClick(product)}>
+                Dodaj do koszyka
+              </button>
+            </div>
           ))
         ) : (
           <p>Loading products...</p>
@@ -86,15 +102,22 @@ function ProductsList() {
 
         {selectedProduct && (
           <div>
-            <h2>Selected Motherboard: {selectedProduct.name}</h2>
-            <h3>Available Processors:</h3>
-            <ul>
-              {processors.map((processor) => (
-                <li key={processor.id}>{processor.name}</li>
-              ))}
-            </ul>
+            <h3>Selected Motherboard: {selectedProduct.name}</h3>
+            {availableProcessors.length > 0 ? (
+              <div>
+                <h3>Available Processors:</h3>
+                <ul>
+                  {availableProcessors.map((processor) => (
+                    <li key={processor.id}>{processor.name}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <p>Loading processors...</p>
+            )}
           </div>
         )}
+
       </header>
     </div>
   );

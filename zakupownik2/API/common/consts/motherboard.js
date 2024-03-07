@@ -1,4 +1,4 @@
-const products = [
+const motherboards = [
   {
     id: 1,
     name: 'ASUS ROG Maximus XIII Hero',
@@ -92,4 +92,4 @@ const products = [
 ];
 
 
-module.exports = products;
+module.exports = motherboards;
