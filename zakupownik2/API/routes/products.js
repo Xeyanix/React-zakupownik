@@ -13,24 +13,49 @@ let motherboards = motherboardslist;
 let cpus = cpu;
 let rams = ram;
 
+
 router.get("/", (req, res) => {
-  res.status(200).json(
-    motherboards.map((motherboard) => ({
+  const allComponents = [
+    ...motherboards.map((motherboard) => ({
       id: motherboard.id,
       name: motherboard.name,
-    }))
-  );
+      type: 'Płyta główna', // Dodajemy pole "type", aby odróżnić płyty główne od CPU
+    })),
+    ...cpus.map((cpu) => ({
+      id: cpu.id,
+      name: cpu.name,
+      type: 'Procesor', // Dodajemy pole "type", aby odróżnić CPU od płyt głównych
+    })),
+    ...rams.map((ram) => ({
+      id: ram.id,
+      name: ram.name,
+      type: 'RAM', // Dodajemy pole "type", aby odróżnić RAM od płyt głównych i CPU
+    })),
+  ];
+
+  res.status(200).json(allComponents);
 });
 
-router.get("/:id", (req, res) => {
-  const motherboardId = req.params.id;
-  const selectedMotherboard = motherboards.find(
-    (motherboard) => motherboard.id === parseInt(motherboardId)
+
+
+
+
+router.get("/shoppingList", (req, res) => {
+  const plainList = shoppingList.filter(
+    (value) => Object.keys(value).length !== 0
   );
-  if (!selectedMotherboard) {
-    return res.status(404).json({ error: "Motherboard not found" });
-  }
-  res.status(200).json(selectedMotherboard);
+  setTimeout(() => {
+    res.status(200).json(
+      plainList.map((product) => ({ id: product.id, name: product.name }))
+    );
+  }, 3000);
+});
+
+router.post("/shoppingList/new", jsonParser, (req, res) => {
+  shoppingList.push(req.body);
+  setTimeout(() => {
+    res.status(200).json(req.body);
+  }, 3000);
 });
 
 router.get("/cpus/:id", (req, res) => {
@@ -56,24 +81,6 @@ router.get("/rams/:id", (req, res) => {
 });
 
 
-router.get("/shoppingList", (req, res) => {
-  const plainList = shoppingList.filter(
-    (value) => Object.keys(value).length !== 0
-  );
-  setTimeout(() => {
-    res.status(200).json(
-      plainList.map((product) => ({ id: product.id, name: product.name }))
-    );
-  }, 3000);
-});
-
-router.post("/shoppingList/new", jsonParser, (req, res) => {
-  shoppingList.push(req.body);
-  setTimeout(() => {
-    res.status(200).json(req.body);
-  }, 3000);
-});
-
 router.delete("/shoppingList/:shoppingListId", jsonParser, (req, res) => {
   const shoppingListId = req.params.shoppingListId;
   shoppingList = shoppingList.filter((product) => product.id !== shoppingListId);
@@ -87,6 +94,16 @@ router.post("/new", jsonParser, (req, res) => {
 
 
 
+router.get("/:id", (req, res) => {
+  const motherboardId = req.params.id;
+  const selectedMotherboard = motherboards.find(
+    (motherboard) => motherboard.id === parseInt(motherboardId)
+  );
+  if (!selectedMotherboard) {
+    return res.status(404).json({ error: "Motherboard not found" });
+  }
+  res.status(200).json(selectedMotherboard);
+});
 
 router
   .route("/:id")

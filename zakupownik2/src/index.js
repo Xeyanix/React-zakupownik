@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     errorElement: <Page404 />,
   },
   {
-    path: "/products",
+    path: "/configurator",
     element: <App />,
     children: [
 

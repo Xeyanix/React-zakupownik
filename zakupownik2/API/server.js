@@ -1,27 +1,26 @@
-const { urlencoded } = require('express');
 const express = require('express');
-const res = require('express/lib/response');
-const bodyParser = require('body-parser');
-
 const app = express();
-cors = require("cors");
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 app.use(cors());
-app.use(express.static("public"));
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 
 const logger = (req, res, next) => {
     console.log('URL: ', req.originalUrl);
     next();
-}
-
+};
 
 app.set('view engine', 'ejs');
 app.use(logger);
 
 const productsRoutes = require('./routes/products');
 
-app.use('/products', productsRoutes)
+// Use the products routes
+app.use('/products', productsRoutes);
 
-app.listen(9000);
+app.listen(9000, () => {
+    console.log('Server is running on port 9000');
+});

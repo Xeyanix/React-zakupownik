@@ -27,6 +27,7 @@ $color-red: red;
   color: $color-red;
   width: 100%;
   border: 1px solid black;
+  overflow: auto;
 }
 
 @keyframes App-logo-spin {
