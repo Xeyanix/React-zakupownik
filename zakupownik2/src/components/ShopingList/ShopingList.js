@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import commonColumnsStyles from "../../common/styles/Columns.module.scss";
+import styles from "../../common/styles/Columns.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import {
   loadShoppingList,
@@ -14,12 +14,12 @@ function ShoppingList() {
   const [deletedItemId, setdeletedItemId] = useState(0);
   const dispatch = useDispatch();
 
-  const handleItemClick = async (product) => {
+  const handleRemoveItem = async (productId) => {
     try {
-      setdeletedItemId(product.id);
+      setdeletedItemId(productId);
       dispatch(setProductsLoadingState("RemovingItem"));
       await axios.delete(
-        `http://localhost:9000/products/shoppingList/${product.id}`
+        `http://localhost:9000/products/shoppingList/${productId}`
       );
 
       const response = await axios.get(
@@ -32,27 +32,64 @@ function ShoppingList() {
     }
   };
 
+  const handleRemoveAllClick = async () => {
+    try {
+      dispatch(setProductsLoadingState("RemovingAllItems"));
+      await axios.delete(
+        `http://localhost:9000/products/shoppingList`
+      );
+      await Promise.all([
+        axios.get(`http://localhost:9000/products/shoppingList`),
+        dispatch(loadShoppingList([])),
+      ]);
+
+
+      dispatch(setProductsLoadingState("success"));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   return (
-    <div className={commonColumnsStyles.App}>
-      <header className={commonColumnsStyles.AppHeader}>
+    <div className={styles.App}>
+      <header className={styles.AppHeader}>
         <p>Shopping List</p>
-        {shoppingList.length > 0
-          ? shoppingList.map((product, index) => (
-            <span onClick={() => handleItemClick(product, index)}>
-              {" "}
-              {index + 1} {product.name}{" "}
-              {loadingStatus === "RemovingItem" &&
-                deletedItemId === product.id ? (
-                <CircularProgress />
-              ) : (
-                ""
-              )}
-            </span>
-          ))
-          : "Brak produktów do wyświetlenia w koszyku!"}
+        <div>
+          {shoppingList.length > 0
+            ? shoppingList.map((product) => (
+              <div key={product.id} className={styles.ProductItem}>
+                <div>
+                  <span>
+                    {product.name}{" "}
+                    {loadingStatus === "RemovingItem" &&
+                      deletedItemId === product.id ? (
+                      <CircularProgress />
+                    ) : (
+                      ""
+                    )}
+                  </span>
+                  <button
+                    className={styles.myButton}
+                    onClick={() => handleRemoveItem(product.id)}
+                  >
+                    Usuń
+                  </button>
+                </div>
+
+              </div >
+            ))
+            : "Brak produktów do wyświetlenia w koszyku!"}
+        </div>
+        <button
+          onClick={handleRemoveAllClick}>Usuń wszystkie
+        </button>
       </header>
-    </div>
+    </div >
+
   );
 }
 
 export default ShoppingList;
+
+//nie dziala remove all click 

@@ -37,9 +37,6 @@ router.get("/", (req, res) => {
 });
 
 
-
-
-
 router.get("/shoppingList", (req, res) => {
   const plainList = shoppingList.filter(
     (value) => Object.keys(value).length !== 0
@@ -81,11 +78,13 @@ router.get("/rams/:id", (req, res) => {
 });
 
 
-router.delete("/shoppingList/:shoppingListId", jsonParser, (req, res) => {
-  const shoppingListId = req.params.shoppingListId;
-  shoppingList = shoppingList.filter((product) => product.id !== shoppingListId);
-  res.status(200).json({ message: "Shopping list item deleted" });
+router.delete("/shoppingList", jsonParser, (req, res) => {
+  shoppingList = []; // Czyść listę zakupów
+  res.status(200).json({ message: "All items deleted from shopping list" });
 });
+
+
+
 
 router.post("/new", jsonParser, (req, res) => {
   motherboards.push(req.body);
